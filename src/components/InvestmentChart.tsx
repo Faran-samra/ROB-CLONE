@@ -207,7 +207,7 @@ function InvestmentChart() {
           <div className="flex flex-col gap-1 mt-1 md:mt-2 ml-2 md:ml-4 text-xs sm:text-sm liter-regular">
             <div className="flex items-center gap-1 sm:gap-2 flex-wrap liter-regular">
               <span
-                className={`flex items-center parkinsans font-bold -mt-2 ${
+                className={`flex items-center  liter-regular font-bold -mt-2 ${
                   isPositive ? "text-[#19cd1d]" : "text-[#ff5000]"
                 }`}
               >
