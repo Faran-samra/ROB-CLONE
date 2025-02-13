@@ -8,7 +8,6 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
-import { motion } from "framer-motion";
 import { subDays, subWeeks, subMonths, subYears, format } from "date-fns";
 import { ChevronDown } from "lucide-react";
 
@@ -47,11 +46,11 @@ function generateDummyData(timeFilter: TimeFilter) {
       startDate = subDays(now, 1);
   }
 
-  const basePrice = 300000; // Base price for realistic trading
+  const basePrice = 293801; // Base price for realistic trading
   let currentPrice = basePrice;
   const data = [];
   let trend = 1;
-  let volatility = 2; // Volatility for price swings
+  let volatility = 0.2; // Further reduced volatility for smoother trend
 
   for (let i = 0; i < dataPoints; i++) {
     const date = new Date(
@@ -61,7 +60,7 @@ function generateDummyData(timeFilter: TimeFilter) {
 
     // Randomly adjust volatility
     if (Math.random() < 0.1) {
-      volatility = 0.5 + Math.random() * 0.2;
+      volatility = 0.1 + Math.random() * 0.1; // Very small volatility adjustments
     }
 
     // Randomly adjust trend
@@ -74,16 +73,16 @@ function generateDummyData(timeFilter: TimeFilter) {
 
     // Add periodic larger changes
     if (i % 10 === 0) {
-      change *= 0.95 + Math.random() * 0.1;
+      change *= 0.99 + Math.random() * 0.02; // Very small periodic changes
     }
 
     // Add wave effect for realism
-    const waveEffect = Math.sin(i / 3) * 0.02;
+    const waveEffect = Math.sin(i / 3) * 0.005; // Very small wave effect
     change += waveEffect;
 
     // Update current price
     currentPrice *= change;
-    currentPrice = Math.max(currentPrice, basePrice * 0.8); // Prevent price from dropping too low
+    currentPrice = Math.max(150000, Math.min(425000, currentPrice)); // Constrain price between 150,000 and 425,000
     data.push({ date, price: currentPrice });
   }
 
@@ -93,7 +92,7 @@ function generateDummyData(timeFilter: TimeFilter) {
 function InvestmentChart() {
   const [timeFilter, setTimeFilter] = useState<TimeFilter>("1D");
   const [hoveredPrice, setHoveredPrice] = useState<number | null>(null);
-  const [baseValue, setBaseValue] = useState(300000); // Base value for profit calculation
+  const [baseValue, setBaseValue] = useState(293801); // Base value for profit calculation
   const [livePrice, setLivePrice] = useState(baseValue);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -120,11 +119,14 @@ function InvestmentChart() {
       setGraphData((prevData) => {
         const newData = [...prevData];
         const lastPrice = newData[newData.length - 1].price;
-        const randomChange = (Math.random() - 0.5) * 100; // Random price change
+
+        // Introduce more randomness for fluctuations
+        const randomChange = (Math.random() - 0.5) * 5000; // Larger random price change for fluctuations
         const newPrice = Math.max(
-          250000, // Minimum price
-          Math.min(350000, lastPrice + randomChange) // Maximum price
+          150000, // Minimum price
+          Math.min(425000, lastPrice + randomChange) // Maximum price
         );
+
         newData.push({
           date: new Date(),
           price: newPrice,
@@ -145,11 +147,11 @@ function InvestmentChart() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const randomChange = (Math.random() - 0.5) * 100; // Random live price change
+      const randomChange = (Math.random() - 0.5) * 1000; // Small random live price change
       setBaseValue((prev) => {
         const newValue = Math.max(
-          250000, // Minimum price
-          Math.min(350000, prev + randomChange) // Maximum price
+          150000, // Minimum price
+          Math.min(425000, prev + randomChange) // Maximum price
         );
         if (!isHovered) setLivePrice(newValue);
         return newValue;
@@ -199,7 +201,7 @@ function InvestmentChart() {
               <span className="text-2xl sm:text-3xl md:text-4xl liter-regular">
                 $
               </span>
-              <AnimatingNumber value={displayValue} />
+              <AnimatingNumber value={displayValue}  />
             </span>
           </h1>
           <div className="flex flex-col gap-1 mt-1 md:mt-2 ml-2 md:ml-4 text-xs sm:text-sm liter-regular">
@@ -238,7 +240,7 @@ function InvestmentChart() {
               onMouseMove={(props) => {
                 if (props.activePayload) {
                   const price = props.activePayload[0].value as number;
-                  setHoveredPrice(price);
+                  setHoveredPrice(Math.max(150000, Math.min(425000, price))); // Constrain hovered price
                   setIsHovered(true);
                 }
               }}
@@ -253,7 +255,7 @@ function InvestmentChart() {
                 axisLine={false}
                 tickLine={false}
               />
-              <YAxis domain={["auto", "auto"]} hide />
+              <YAxis domain={[150000, 425000]} hide /> {/* Constrain Y-axis range */}
               <Tooltip
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
