@@ -82,7 +82,7 @@ function generateDummyData(timeFilter: TimeFilter) {
 
     // Update current price
     currentPrice *= change;
-    currentPrice = Math.max(150000, Math.min(425000, currentPrice)); // Constrain price between 150,000 and 425,000
+    currentPrice = Math.max(167209, Math.min(397083, currentPrice)); // Constrain price between 150,000 and 425,000
     data.push({ date, price: currentPrice });
   }
 
