@@ -186,12 +186,34 @@ function InvestmentChart() {
     }
   };
 
+  const getMultiplier = (filter: TimeFilter) => {
+    switch (filter) {
+      case 'LIVE':
+      case '1D':
+        return 1;
+      case '1W':
+        return 6;
+      case '1M':
+        return 10;
+        case '3M':
+          return 30
+      case '1Y':
+      case 'ALL':
+        return 100;
+      default:
+        return 1;
+    }
+  };
+  
+
+
+
   const currentPrice = graphData[graphData.length - 1]?.price;
   const previousPrice = graphData[0]?.price;
   const priceChange = hoveredPrice
     ? hoveredPrice - previousPrice
     : currentPrice - previousPrice;
-  const percentageChange = (priceChange / previousPrice) * 1;
+  const percentageChange = (priceChange / previousPrice) * getMultiplier(timeFilter);
   const isPositive = percentageChange >= 0;
 
   return (
