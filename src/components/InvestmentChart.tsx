@@ -192,7 +192,7 @@ function InvestmentChart() {
       case '1D':
         return 1;
       case '1W':
-        return 6;
+        return 4;
       case '1M':
         return 10;
         case '3M':
