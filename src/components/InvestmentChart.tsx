@@ -140,7 +140,7 @@ function InvestmentChart() {
 
         return updatedData;
       });
-    }, 30000); // Update every 30 seconds
+    }, 40000); // Update every 30 seconds
 
     return () => clearInterval(interval);
   }, [timeFilter]);
@@ -160,6 +160,8 @@ function InvestmentChart() {
 
     return () => clearInterval(interval);
   }, [isHovered]);
+
+  
 
   const displayValue = hoveredPrice !== null ? hoveredPrice : livePrice;
 
@@ -189,7 +191,7 @@ function InvestmentChart() {
   const priceChange = hoveredPrice
     ? hoveredPrice - previousPrice
     : currentPrice - previousPrice;
-  const percentageChange = (priceChange / previousPrice) * 100;
+  const percentageChange = (priceChange / previousPrice) * 1;
   const isPositive = percentageChange >= 0;
 
   return (
