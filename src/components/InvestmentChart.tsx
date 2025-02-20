@@ -241,8 +241,9 @@ function InvestmentChart() {
                       Math.abs(percentageChange),
                       baseValue
                     )
-                  ) + 0.99
-                ).toLocaleString()}{" "}
+                  ) + parseFloat((Math.random() * 0.98 + 0.01).toFixed(2))
+                ) // Random decimal, formatted to 2 decimal places
+                  .toLocaleString()}
                 (
                 {Math.abs(percentageChange).toLocaleString("en-US", {
                   minimumFractionDigits: 2,
