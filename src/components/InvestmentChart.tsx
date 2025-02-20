@@ -161,8 +161,6 @@ function InvestmentChart() {
     return () => clearInterval(interval);
   }, [isHovered]);
 
-  
-
   const displayValue = hoveredPrice !== null ? hoveredPrice : livePrice;
 
   const getTimeLabel = () => {
@@ -188,32 +186,30 @@ function InvestmentChart() {
 
   const getMultiplier = (filter: TimeFilter) => {
     switch (filter) {
-      case 'LIVE':
-      case '1D':
+      case "LIVE":
+      case "1D":
         return 1;
-      case '1W':
+      case "1W":
         return 4;
-      case '1M':
+      case "1M":
         return 10;
-        case '3M':
-          return 30
-      case '1Y':
-      case 'ALL':
+      case "3M":
+        return 30;
+      case "1Y":
+      case "ALL":
         return 100;
       default:
         return 1;
     }
   };
-  
-
-
 
   const currentPrice = graphData[graphData.length - 1]?.price;
   const previousPrice = graphData[0]?.price;
   const priceChange = hoveredPrice
     ? hoveredPrice - previousPrice
     : currentPrice - previousPrice;
-  const percentageChange = (priceChange / previousPrice) * getMultiplier(timeFilter);
+  const percentageChange =
+    (priceChange / previousPrice) * getMultiplier(timeFilter);
   const isPositive = percentageChange >= 0;
 
   return (
@@ -225,7 +221,7 @@ function InvestmentChart() {
               <span className="text-2xl sm:text-3xl md:text-4xl liter-regular">
                 $
               </span>
-              <AnimatingNumber value={displayValue}  />
+              <AnimatingNumber value={displayValue} />
             </span>
           </h1>
           <div className="flex flex-col gap-1 mt-1 md:mt-2 ml-2 md:ml-4 text-xs sm:text-sm liter-regular">
@@ -239,9 +235,13 @@ function InvestmentChart() {
                   {isPositive ? "▲" : "▼"}
                 </span>
                 $
-                {calculateValueFromPercentage(
-                  Math.abs(percentageChange),
-                  baseValue
+                {(
+                  Math.floor(
+                    calculateValueFromPercentage(
+                      Math.abs(percentageChange),
+                      baseValue
+                    )
+                  ) + 0.99
                 ).toLocaleString()}{" "}
                 (
                 {Math.abs(percentageChange).toLocaleString("en-US", {
@@ -279,7 +279,8 @@ function InvestmentChart() {
                 axisLine={false}
                 tickLine={false}
               />
-              <YAxis domain={[150000, 425000]} hide /> {/* Constrain Y-axis range */}
+              <YAxis domain={[150000, 425000]} hide />{" "}
+              {/* Constrain Y-axis range */}
               <Tooltip
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
