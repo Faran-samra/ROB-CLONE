@@ -225,15 +225,22 @@ function InvestmentChart() {
             </span>
           </h1>
           <div className="flex flex-col gap-1 mt-1 md:mt-2 ml-2 md:ml-4 text-xs sm:text-sm liter-regular">
-            <div className="flex items-center gap-1 sm:gap-2 flex-wrap liter-regular">
+            <div className="flex items-baseline ">
+              {/* Arrow with no extra space */}
               <span
-                className={`flex items-center  liter-regular font-bold -mt-2 ${
+                className={`text-base font-bold ${
                   isPositive ? "text-[#19cd1d]" : "text-[#ff5000]"
                 }`}
               >
-                <span className="text-base liter-regular font-bold">
-                  {isPositive ? "▲" : "▼"}
-                </span>
+                {isPositive ? "▲" : "▼"}
+              </span>
+
+              {/* Price immediately following the arrow */}
+              <span
+                className={`font-bold  ${
+                  isPositive ? "text-[#19cd1d]" : "text-[#ff5000]"
+                }`}
+              >
                 $
                 {(
                   Math.floor(
@@ -242,8 +249,16 @@ function InvestmentChart() {
                       baseValue
                     )
                   ) + parseFloat((Math.random() * 0.98 + 0.01).toFixed(2))
-                ) // Random decimal, formatted to 2 decimal places
-                  .toLocaleString()}
+                ).toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </span>
+
+              {/* Percentage with proper formatting; note the lack of extra spaces inside the parentheses */}
+              <span  className={`ml-1 font-bold ${
+                  isPositive ? "text-[#19cd1d]" : "text-[#ff5000]"
+                }`}>
                 (
                 {Math.abs(percentageChange).toLocaleString("en-US", {
                   minimumFractionDigits: 2,
@@ -251,7 +266,9 @@ function InvestmentChart() {
                 })}
                 %)
               </span>
-              <span className="text-gray-100 text-slate-50 whitespace-nowrap -mt-2 -ml-1">
+
+              {/* Time label with spacing */}
+              <span className="ml-1 text-gray-100 whitespace-nowrap">
                 {getTimeLabel()}
               </span>
             </div>
