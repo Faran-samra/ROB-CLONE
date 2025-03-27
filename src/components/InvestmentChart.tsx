@@ -225,7 +225,7 @@ function InvestmentChart() {
             </span>
           </h1>
           <div className="flex flex-col gap-1 mt-1 md:mt-2 ml-2 md:ml-4 text-xs sm:text-sm liter-regular">
-            <div className="flex items-baseline ">
+            <div className="flex items-baseline  -mt-3 text-1xl liter-regular font-normal">
               {/* Arrow with no extra space */}
               <span
                 className={`text-base font-bold ${
@@ -237,7 +237,7 @@ function InvestmentChart() {
 
               {/* Price immediately following the arrow */}
               <span
-                className={`font-bold  ${
+                className={`font-bold -mt-2 ${
                   isPositive ? "text-[#19cd1d]" : "text-[#ff5000]"
                 }`}
               >
@@ -256,7 +256,7 @@ function InvestmentChart() {
               </span>
 
               {/* Percentage with proper formatting; note the lack of extra spaces inside the parentheses */}
-              <span  className={`ml-1 font-bold ${
+              <span  className={`ml-1 -mt-2 font-bold ${
                   isPositive ? "text-[#19cd1d]" : "text-[#ff5000]"
                 }`}>
                 (
