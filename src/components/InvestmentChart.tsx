@@ -225,7 +225,7 @@ function InvestmentChart() {
             </span>
           </h1>
           <div className="flex flex-col gap-1 mt-1 md:mt-2 ml-2 md:ml-4 text-xs sm:text-sm liter-regular">
-            <div className="flex items-baseline  -mt-3 text-1xl liter-regular font-normal">
+            <div className="flex items-baseline  -mt-2 text-1xl liter-regular font-normal">
               {/* Arrow with no extra space */}
               <span
                 className={`text-base font-bold ${
