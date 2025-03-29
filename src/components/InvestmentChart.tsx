@@ -224,12 +224,12 @@ function InvestmentChart() {
               <AnimatingNumber value={displayValue} />
             </span>
           </h1>
-          <div className="flex flex-col gap-1 mt-1 md:mt-2 ml-2 md:ml-4 text-xs sm:text-sm liter-regular">
-            <div className="flex items-baseline  -mt-2 text-1xl liter-regular font-normal">
+          <div className="flex flex-col gap-1 mt-1 md:mt-2 ml-2 md:ml-4 text-xs sm:text-sm liter-regular ">
+            <div className="flex items-baseline  mt-1 text-[16px] liter-regular font-normal">
               {/* Arrow with no extra space */}
               <span
-                className={`text-base font-bold ${
-                  isPositive ? "text-[#19cd1d]" : "text-[#ff5000]"
+                className={`text-[16.4px]   ${
+                  isPositive ? "text-[#19cd1d]" : "text-[#ff5000] "
                 }`}
               >
                 {isPositive ? "▲" : "▼"}
@@ -237,7 +237,7 @@ function InvestmentChart() {
 
               {/* Price immediately following the arrow */}
               <span
-                className={`font-bold -mt-2 ${
+                className={`font-bold  ml-1.5 ${
                   isPositive ? "text-[#19cd1d]" : "text-[#ff5000]"
                 }`}
               >
