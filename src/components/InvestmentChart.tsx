@@ -140,7 +140,7 @@ function InvestmentChart() {
 
         return updatedData;
       });
-    }, 4000); // Update every 30 seconds
+    }, 40000); // Update every 30 seconds
 
     return () => clearInterval(interval);
   }, [timeFilter]);
