@@ -121,7 +121,7 @@ function InvestmentChart() {
         const lastPrice = newData[newData.length - 1].price;
 
         // Introduce more randomness for fluctuations
-        const randomChange = (Math.random() - 0.5) * 5000; // Larger random price change for fluctuations
+        const randomChange = (Math.random() - 0.5) * 1000; // Larger random price change for fluctuations
         const newPrice = Math.max(
           150000, // Minimum price
           Math.min(425000, lastPrice + randomChange) // Maximum price
@@ -131,7 +131,7 @@ function InvestmentChart() {
           date: new Date(),
           price: newPrice,
         });
-        const updatedData = newData.slice(-100);
+        const updatedData = newData.slice(-3000);
 
         setGraphDataCache((prevCache) => ({
           ...prevCache,
@@ -140,7 +140,7 @@ function InvestmentChart() {
 
         return updatedData;
       });
-    }, 40000); // Update every 30 seconds
+    }, 4000); // Update every 30 seconds
 
     return () => clearInterval(interval);
   }, [timeFilter]);
